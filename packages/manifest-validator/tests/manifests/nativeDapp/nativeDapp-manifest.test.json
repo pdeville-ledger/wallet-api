@@ -1,0 +1,41 @@
+{
+  "id": "alkemi",
+  "name": "Alkemi",
+  "url": "https://earn.alkemi.network",
+  "dapp": {
+    "nanoApp": "ok",
+    "provider": "evm",
+    "networks": [
+      {
+        "currency": "ethereum",
+        "chainID": 1,
+        "nodeURL": "https://eth-dapps.api.live.ledger.com"
+      },
+      {
+        "currency": "bsc",
+        "chainID": 56,
+        "nodeURL": "https://bsc-dataseed.binance.org/"
+      }
+    ]
+  },
+  "homepageUrl": "https://earn.alkemi.network",
+  "supportUrl": "https://earn.alkemi.network",
+  "domains": ["https"],
+  "branch": "stable",
+  "icon": "https://cdn.live.ledger.com/icons/platform/alkemi.png",
+  "platforms": ["android", "ios", "desktop"],
+  "apiVersion": "^1.0.0 || ~0.0.1",
+  "manifestVersion": "2",
+  "categories": ["farm"],
+  "currencies": ["ethereum"],
+  "content": {
+    "shortDescription": {
+      "en": "Earn high yields on your assets with our professional DeFi borrowing and lending platform."
+    },
+    "description": {
+      "en": "Earn high yields on your assets with our professional DeFi borrowing and lending platform."
+    }
+  },
+  "permissions": ["test"],
+  "visibility": "deep"
+}

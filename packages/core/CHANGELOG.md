@@ -1,5 +1,133 @@
 # @ledgerhq/wallet-api-core
 
+## 1.21.0
+
+### Minor Changes
+
+- [#459](https://github.com/LedgerHQ/wallet-api/pull/459) [`8357fe5`](https://github.com/LedgerHQ/wallet-api/commit/8357fe5a98e4f97d9f2af81abecb58990468a01a) Thanks [@LucasWerey](https://github.com/LucasWerey)! - Add drawerConfiguration to be able to customize MAD
+
+## 1.20.0
+
+### Minor Changes
+
+- [#451](https://github.com/LedgerHQ/wallet-api/pull/451) [`ebc8996`](https://github.com/LedgerHQ/wallet-api/commit/ebc8996e4646fa52410e68c19791c9f8e8b4f4bf) Thanks [@Justkant](https://github.com/Justkant)! - feat: add sign message options
+
+## 1.19.1
+
+### Patch Changes
+
+- [#449](https://github.com/LedgerHQ/wallet-api/pull/449) [`3d5a3ec`](https://github.com/LedgerHQ/wallet-api/commit/3d5a3ec46499ae93c94d7c3a423ece402741d002) Thanks [@Justkant](https://github.com/Justkant)! - fix: missing exhaustive check on ton payload serializer
+
+## 1.19.0
+
+### Minor Changes
+
+- [#447](https://github.com/LedgerHQ/wallet-api/pull/447) [`8206dac`](https://github.com/LedgerHQ/wallet-api/commit/8206dac5ec44a7cc259fdebdc04248364915b68f) Thanks [@Justkant](https://github.com/Justkant)! - feat(ton): expose ton payload for all possible actions
+
+## 1.18.0
+
+### Minor Changes
+
+- [#444](https://github.com/LedgerHQ/wallet-api/pull/444) [`38a17e0`](https://github.com/LedgerHQ/wallet-api/commit/38a17e07e1ecfb33c04a732842b415694e7475a9) Thanks [@Moustafa-Koterba](https://github.com/Moustafa-Koterba)! - Support RAW tx for Solana
+
+## 1.17.1
+
+### Patch Changes
+
+- [#443](https://github.com/LedgerHQ/wallet-api/pull/443) [`435319e`](https://github.com/LedgerHQ/wallet-api/commit/435319e3502f774aa26431da1d1304e48276841e) Thanks [@qperrot](https://github.com/qperrot)! - Add approve and revoke type
+
+## 1.17.0
+
+### Minor Changes
+
+- [#440](https://github.com/LedgerHQ/wallet-api/pull/440) [`0366a27`](https://github.com/LedgerHQ/wallet-api/commit/0366a27fcc47d1eddd2b840904900a8437abed3f) Thanks [@jonezque](https://github.com/jonezque)! - support sui family
+
+## 1.16.0
+
+### Minor Changes
+
+- [#436](https://github.com/LedgerHQ/wallet-api/pull/436) [`74647a4`](https://github.com/LedgerHQ/wallet-api/commit/74647a4fc01f7a50c0ed18ad4e341bb56c1c12aa) Thanks [@CremaFR](https://github.com/CremaFR)! - feat: new param to customize account request
+
+## 1.15.0
+
+### Minor Changes
+
+- [#430](https://github.com/LedgerHQ/wallet-api/pull/430) [`4ed8d9a`](https://github.com/LedgerHQ/wallet-api/commit/4ed8d9a8b0747593374dd90a762e924494151c0e) Thanks [@semeano](https://github.com/semeano)! - Add support for Aptos
+
+## 1.14.0
+
+### Minor Changes
+
+- [#428](https://github.com/LedgerHQ/wallet-api/pull/428) [`9724dce`](https://github.com/LedgerHQ/wallet-api/commit/9724dcea7c73da3cdf71e3b994f1d08d6078adf3) Thanks [@jccguimaraes](https://github.com/jccguimaraes)! - add support for coin aptos
+
+## 1.13.0
+
+### Minor Changes
+
+- [#393](https://github.com/LedgerHQ/wallet-api/pull/393) [`9261475`](https://github.com/LedgerHQ/wallet-api/commit/926147536eb309f2c19c90e9f7217e599fde2bf6) Thanks [@Justkant](https://github.com/Justkant)! - feat: add bitcoin.getAddress and bitcoin.getPublicKey
+
+## 1.12.0
+
+### Minor Changes
+
+- [#389](https://github.com/LedgerHQ/wallet-api/pull/389) [`d7910f0`](https://github.com/LedgerHQ/wallet-api/commit/d7910f0c0ca983862610ee6982cd7a98f260d6a7) Thanks [@sprohaszka-ledger](https://github.com/sprohaszka-ledger)! - Add TON support
+
+## 1.11.0
+
+### Minor Changes
+
+- [#379](https://github.com/LedgerHQ/wallet-api/pull/379) [`46007fc`](https://github.com/LedgerHQ/wallet-api/commit/46007fc924eb0497344a5f3c5f0eb751e1ef5322) Thanks [@Justkant](https://github.com/Justkant)! - feat: add optional dependencies option on transaction sign and broadcast
+
+## 1.10.1
+
+### Patch Changes
+
+- [#346](https://github.com/LedgerHQ/wallet-api/pull/346) [`a738747`](https://github.com/LedgerHQ/wallet-api/commit/a7387476e6fc071927152417ad16f6fdd1433f35) Thanks [@Justkant](https://github.com/Justkant)! - fix: loosen family validation to provide better forward compatibility
+
+- [#349](https://github.com/LedgerHQ/wallet-api/pull/349) [`11a705f`](https://github.com/LedgerHQ/wallet-api/commit/11a705fa42ecf0f17234bbf536a7e7b8254aeed9) Thanks [@Justkant](https://github.com/Justkant)! - fix: serializeError handling and allow passthrough for unknown errors
+
+## 1.10.0
+
+### Minor Changes
+
+- [#344](https://github.com/LedgerHQ/wallet-api/pull/344) [`2f325fe`](https://github.com/LedgerHQ/wallet-api/commit/2f325fe0b4e13b209af9eced302c383483d8eee3) Thanks [@Wozacosta](https://github.com/Wozacosta)! - feat: add casper family
+
+- [#343](https://github.com/LedgerHQ/wallet-api/pull/343) [`a2af615`](https://github.com/LedgerHQ/wallet-api/commit/a2af615eb368cd17511a37f296a5c8e1910a144e) Thanks [@Wozacosta](https://github.com/Wozacosta)! - feat: add internet_computer family
+
+### Patch Changes
+
+- [#334](https://github.com/LedgerHQ/wallet-api/pull/334) [`091cf53`](https://github.com/LedgerHQ/wallet-api/commit/091cf534f5637f37789877bcdba34a2dec7d6c5d) Thanks [@Wozacosta](https://github.com/Wozacosta)! - update manifest json schema
+
+## 1.9.0
+
+### Minor Changes
+
+- [#335](https://github.com/LedgerHQ/wallet-api/pull/335) [`0719773`](https://github.com/LedgerHQ/wallet-api/commit/0719773948ef4e754fdcee179f094539a3edc31b) Thanks [@Wozacosta](https://github.com/Wozacosta)! - feat: add stacks family
+
+## 1.8.0
+
+### Minor Changes
+
+- [#332](https://github.com/LedgerHQ/wallet-api/pull/332) [`1f5bd03`](https://github.com/LedgerHQ/wallet-api/commit/1f5bd03406bd0648685e46753089f32af7837269) Thanks [@Justkant](https://github.com/Justkant)! - feat: add vechain family
+
+## 1.7.2
+
+### Patch Changes
+
+- [#310](https://github.com/LedgerHQ/wallet-api/pull/310) [`e1c2efa`](https://github.com/LedgerHQ/wallet-api/commit/e1c2efaa103d05b57d06c40897490cbf21394c57) Thanks [@ofreyssinet-ledger](https://github.com/ofreyssinet-ledger)! - add "europa" to DeviceType
+
+## 1.7.1
+
+### Patch Changes
+
+- [#302](https://github.com/LedgerHQ/wallet-api/pull/302) [`181edfd`](https://github.com/LedgerHQ/wallet-api/commit/181edfd78d43bba156919afedd2b12b4e3e24290) Thanks [@Wozacosta](https://github.com/Wozacosta)! - handle parentAccount when requesting an account
+
+## 1.7.0
+
+### Minor Changes
+
+- [#288](https://github.com/LedgerHQ/wallet-api/pull/288) [`5fabdc6`](https://github.com/LedgerHQ/wallet-api/commit/5fabdc62fb10fae8e55b2a3f5a802feff9bd5911) Thanks [@Philippoes](https://github.com/Philippoes)! - add support for tron 2.0 staking
+
 ## 1.6.2
 
 ### Patch Changes

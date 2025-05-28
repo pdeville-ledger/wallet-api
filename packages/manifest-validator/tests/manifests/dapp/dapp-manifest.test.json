@@ -2,7 +2,6 @@
   "id": "alkemi",
   "name": "Alkemi",
   "url": "https://dapp-browser.apps.ledger.com",
-  "type": "dApp",
   "params": {
     "dappUrl": "https://earn.alkemi.network/dashboard?embed=true",
     "nanoApp": "Alkemi",
@@ -17,15 +16,21 @@
   },
   "homepageUrl": "https://earn.alkemi.network",
   "supportUrl": "https://earn.alkemi.network",
+  "domains": ["https"],
+  "branch": "stable",
   "icon": "https://cdn.live.ledger.com/icons/platform/alkemi.png",
   "platforms": ["ios"],
   "apiVersion": "^1.0.0 || ~0.0.1",
-  "version": 2,
+  "manifestVersion": "2",
   "categories": ["farm"],
   "currencies": ["ethereum"],
   "content": {
-    "shortDescription": "Earn high yields on your assets with our professional DeFi borrowing and lending platform.",
-    "description": "Earn high yields on your assets with our professional DeFi borrowing and lending platform."
+    "shortDescription": {
+      "en": "Earn high yields on your assets with our professional DeFi borrowing and lending platform."
+    },
+    "description": {
+      "en": "Earn high yields on your assets with our professional DeFi borrowing and lending platform."
+    }
   },
   "permissions": ["test"],
   "visibility": "complete"

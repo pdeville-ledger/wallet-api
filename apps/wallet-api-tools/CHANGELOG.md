@@ -1,5 +1,190 @@
 # @ledgerhq/wallet-api-tools
 
+## 0.5.11
+
+### Patch Changes
+
+- Updated dependencies [[`8357fe5`](https://github.com/LedgerHQ/wallet-api/commit/8357fe5a98e4f97d9f2af81abecb58990468a01a)]:
+  - @ledgerhq/wallet-api-core@1.21.0
+  - @ledgerhq/wallet-api-simulator@1.2.11
+
+## 0.5.10
+
+### Patch Changes
+
+- Updated dependencies [[`ebc8996`](https://github.com/LedgerHQ/wallet-api/commit/ebc8996e4646fa52410e68c19791c9f8e8b4f4bf)]:
+  - @ledgerhq/wallet-api-core@1.20.0
+  - @ledgerhq/wallet-api-simulator@1.2.10
+
+## 0.5.9
+
+### Patch Changes
+
+- Updated dependencies [[`3d5a3ec`](https://github.com/LedgerHQ/wallet-api/commit/3d5a3ec46499ae93c94d7c3a423ece402741d002)]:
+  - @ledgerhq/wallet-api-core@1.19.1
+  - @ledgerhq/wallet-api-simulator@1.2.9
+
+## 0.5.8
+
+### Patch Changes
+
+- Updated dependencies [[`8206dac`](https://github.com/LedgerHQ/wallet-api/commit/8206dac5ec44a7cc259fdebdc04248364915b68f)]:
+  - @ledgerhq/wallet-api-core@1.19.0
+  - @ledgerhq/wallet-api-simulator@1.2.8
+
+## 0.5.7
+
+### Patch Changes
+
+- Updated dependencies [[`38a17e0`](https://github.com/LedgerHQ/wallet-api/commit/38a17e07e1ecfb33c04a732842b415694e7475a9)]:
+  - @ledgerhq/wallet-api-core@1.18.0
+  - @ledgerhq/wallet-api-simulator@1.2.7
+
+## 0.5.6
+
+### Patch Changes
+
+- Updated dependencies [[`435319e`](https://github.com/LedgerHQ/wallet-api/commit/435319e3502f774aa26431da1d1304e48276841e)]:
+  - @ledgerhq/wallet-api-core@1.17.1
+  - @ledgerhq/wallet-api-simulator@1.2.6
+
+## 0.5.5
+
+### Patch Changes
+
+- Updated dependencies [[`0366a27`](https://github.com/LedgerHQ/wallet-api/commit/0366a27fcc47d1eddd2b840904900a8437abed3f)]:
+  - @ledgerhq/wallet-api-core@1.17.0
+  - @ledgerhq/wallet-api-simulator@1.2.5
+
+## 0.5.4
+
+### Patch Changes
+
+- Updated dependencies [[`74647a4`](https://github.com/LedgerHQ/wallet-api/commit/74647a4fc01f7a50c0ed18ad4e341bb56c1c12aa)]:
+  - @ledgerhq/wallet-api-core@1.16.0
+  - @ledgerhq/wallet-api-simulator@1.2.4
+
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies [[`4ed8d9a`](https://github.com/LedgerHQ/wallet-api/commit/4ed8d9a8b0747593374dd90a762e924494151c0e)]:
+  - @ledgerhq/wallet-api-core@1.15.0
+  - @ledgerhq/wallet-api-simulator@1.2.3
+
+## 0.5.2
+
+### Patch Changes
+
+- Updated dependencies [[`9724dce`](https://github.com/LedgerHQ/wallet-api/commit/9724dcea7c73da3cdf71e3b994f1d08d6078adf3)]:
+  - @ledgerhq/wallet-api-core@1.14.0
+  - @ledgerhq/wallet-api-simulator@1.2.2
+
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-simulator@1.2.1
+
+## 0.5.0
+
+### Minor Changes
+
+- [#393](https://github.com/LedgerHQ/wallet-api/pull/393) [`9261475`](https://github.com/LedgerHQ/wallet-api/commit/926147536eb309f2c19c90e9f7217e599fde2bf6) Thanks [@Justkant](https://github.com/Justkant)! - feat: add bitcoin.getAddress and bitcoin.getPublicKey
+
+### Patch Changes
+
+- Updated dependencies [[`9261475`](https://github.com/LedgerHQ/wallet-api/commit/926147536eb309f2c19c90e9f7217e599fde2bf6)]:
+  - @ledgerhq/wallet-api-simulator@1.2.0
+  - @ledgerhq/wallet-api-core@1.13.0
+
+## 0.4.18
+
+### Patch Changes
+
+- Updated dependencies [[`d7910f0`](https://github.com/LedgerHQ/wallet-api/commit/d7910f0c0ca983862610ee6982cd7a98f260d6a7)]:
+  - @ledgerhq/wallet-api-core@1.12.0
+  - @ledgerhq/wallet-api-simulator@1.1.17
+
+## 0.4.17
+
+### Patch Changes
+
+- Updated dependencies [[`46007fc`](https://github.com/LedgerHQ/wallet-api/commit/46007fc924eb0497344a5f3c5f0eb751e1ef5322)]:
+  - @ledgerhq/wallet-api-core@1.11.0
+  - @ledgerhq/wallet-api-simulator@1.1.16
+
+## 0.4.16
+
+### Patch Changes
+
+- Updated dependencies [[`a738747`](https://github.com/LedgerHQ/wallet-api/commit/a7387476e6fc071927152417ad16f6fdd1433f35), [`11a705f`](https://github.com/LedgerHQ/wallet-api/commit/11a705fa42ecf0f17234bbf536a7e7b8254aeed9)]:
+  - @ledgerhq/wallet-api-core@1.10.1
+  - @ledgerhq/wallet-api-simulator@1.1.15
+
+## 0.4.15
+
+### Patch Changes
+
+- Updated dependencies [[`2f325fe`](https://github.com/LedgerHQ/wallet-api/commit/2f325fe0b4e13b209af9eced302c383483d8eee3), [`091cf53`](https://github.com/LedgerHQ/wallet-api/commit/091cf534f5637f37789877bcdba34a2dec7d6c5d), [`a2af615`](https://github.com/LedgerHQ/wallet-api/commit/a2af615eb368cd17511a37f296a5c8e1910a144e)]:
+  - @ledgerhq/wallet-api-core@1.10.0
+  - @ledgerhq/wallet-api-simulator@1.1.14
+
+## 0.4.14
+
+### Patch Changes
+
+- Updated dependencies [[`0719773`](https://github.com/LedgerHQ/wallet-api/commit/0719773948ef4e754fdcee179f094539a3edc31b)]:
+  - @ledgerhq/wallet-api-core@1.9.0
+  - @ledgerhq/wallet-api-simulator@1.1.13
+
+## 0.4.13
+
+### Patch Changes
+
+- Updated dependencies [[`1f5bd03`](https://github.com/LedgerHQ/wallet-api/commit/1f5bd03406bd0648685e46753089f32af7837269)]:
+  - @ledgerhq/wallet-api-core@1.8.0
+  - @ledgerhq/wallet-api-simulator@1.1.12
+
+## 0.4.12
+
+### Patch Changes
+
+- Updated dependencies [[`6883a33`](https://github.com/LedgerHQ/wallet-api/commit/6883a33467bb087be8ca3f35252ca9ed5f3aaa0a), [`50f0d3e`](https://github.com/LedgerHQ/wallet-api/commit/50f0d3e1d0159d41132fed20445697c678eb9503)]:
+  - @ledgerhq/wallet-api-simulator@1.1.11
+
+## 0.4.11
+
+### Patch Changes
+
+- Updated dependencies [[`e1c2efa`](https://github.com/LedgerHQ/wallet-api/commit/e1c2efaa103d05b57d06c40897490cbf21394c57)]:
+  - @ledgerhq/wallet-api-core@1.7.2
+  - @ledgerhq/wallet-api-simulator@1.1.10
+
+## 0.4.10
+
+### Patch Changes
+
+- Updated dependencies [[`25305e8`](https://github.com/LedgerHQ/wallet-api/commit/25305e8153fc0ad534be41839e5e76411731d8a2)]:
+  - @ledgerhq/wallet-api-simulator@1.1.9
+
+## 0.4.9
+
+### Patch Changes
+
+- Updated dependencies [[`181edfd`](https://github.com/LedgerHQ/wallet-api/commit/181edfd78d43bba156919afedd2b12b4e3e24290)]:
+  - @ledgerhq/wallet-api-core@1.7.1
+  - @ledgerhq/wallet-api-simulator@1.1.8
+
+## 0.4.8
+
+### Patch Changes
+
+- Updated dependencies [[`5fabdc6`](https://github.com/LedgerHQ/wallet-api/commit/5fabdc62fb10fae8e55b2a3f5a802feff9bd5911)]:
+  - @ledgerhq/wallet-api-core@1.7.0
+  - @ledgerhq/wallet-api-simulator@1.1.7
+
 ## 0.4.7
 
 ### Patch Changes

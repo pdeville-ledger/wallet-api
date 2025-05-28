@@ -1,4 +1,8 @@
-import { WalletAPIClient } from "@ledgerhq/wallet-api-client";
+import { TransportStatusError } from "@ledgerhq/errors";
+import {
+  WalletAPIClient,
+  deserializeAccount,
+} from "@ledgerhq/wallet-api-client";
 import BigNumber from "bignumber.js";
 import { getSimulatorTransport, profiles } from "../src";
 
@@ -15,7 +19,112 @@ const profileWithUnhandledMethods = {
   methods: {},
 };
 
+const profileWithFakeCurrency = {
+  ...profiles.STANDARD,
+  permissions: {
+    ...profiles.STANDARD.permissions,
+    currencyIds: ["**"], // Check that we support glob with unknown currency
+  },
+  currencies: [
+    ...profiles.STANDARD.currencies,
+    {
+      type: "CryptoCurrency",
+      id: "fake", // Check support for fake currency
+      ticker: "FAKE",
+      name: "Fake",
+      family: "fake",
+      color: "#facfac",
+      decimals: 69,
+    } as const,
+  ],
+  accounts: [
+    ...profiles.STANDARD.accounts,
+    deserializeAccount({
+      id: "account-fake-1",
+      name: "Fake 1",
+      address: "address",
+      currency: "fake", // Check support for fake account
+      balance: "42",
+      spendableBalance: "42",
+      blockHeight: 1,
+      lastSyncDate: "1995-12-17T03:24:00",
+    }),
+  ],
+};
+
 describe("Simulator", () => {
+  describe("bitcoin.getAddress", () => {
+    it("should return the address", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profiles.STANDARD);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const address = await client.bitcoin.getAddress("accountId", "0/0");
+
+      // THEN
+      expect(address).toBe("address");
+    });
+
+    it("should throw an error if permission not granted", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithNoPermissions);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(client.bitcoin.getAddress("accountId")).rejects.toThrow(
+        "permission",
+      );
+    });
+
+    it("should throw an error if method not handled by server", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithUnhandledMethods);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(client.bitcoin.getAddress("accountId")).rejects.toThrow(
+        "not implemented",
+      );
+    });
+  });
+
+  describe("bitcoin.getPublicKey", () => {
+    it("should return the publicKey", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profiles.STANDARD);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const publicKey = await client.bitcoin.getPublicKey("accountId", "0/0");
+
+      // THEN
+      expect(publicKey).toBe("publicKey");
+    });
+
+    it("should throw an error if permission not granted", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithNoPermissions);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(client.bitcoin.getPublicKey("accountId")).rejects.toThrow(
+        "permission",
+      );
+    });
+
+    it("should throw an error if method not handled by server", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithUnhandledMethods);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(client.bitcoin.getPublicKey("accountId")).rejects.toThrow(
+        "not implemented",
+      );
+    });
+  });
+
   describe("bitcoin.getXPub", () => {
     it("should return the xpub", async () => {
       // GIVEN
@@ -88,6 +197,22 @@ describe("Simulator", () => {
       // THEN
       await expect(client.account.list()).rejects.toThrow("permission");
     });
+
+    it("should support unknown accounts", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithFakeCurrency);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const accounts = await client.account.list();
+
+      // THEN
+      expect(accounts).toBeDefined();
+      expect(accounts).toHaveLength(3);
+      expect(accounts).toEqual(
+        expect.arrayContaining([expect.objectContaining({ currency: "fake" })]),
+      );
+    });
   });
 
   describe("account.request", () => {
@@ -114,6 +239,31 @@ describe("Simulator", () => {
       await expect(
         client.account.request({ currencyIds: ["bitcoin"] }),
       ).rejects.toThrow("permission");
+    });
+
+    it("should return the requested account with drawer configuration", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profiles.STANDARD);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const account = await client.account.request({
+        currencyIds: ["bitcoin"],
+        drawerConfiguration: {
+          assets: {
+            filter: "topNetworks",
+            leftElement: "apy",
+            rightElement: "marketTrend",
+          },
+          networks: {
+            leftElement: "numberOfAccountsAndApy",
+            rightElement: "balance",
+          },
+        },
+      });
+
+      // THEN
+      expect(account).toBeDefined();
     });
   });
 
@@ -175,12 +325,52 @@ describe("Simulator", () => {
       const client = new WalletAPIClient(transport);
 
       // WHEN
-      const currencyIds = ["bitcoin", "ethereum"];
+      const currencyIds = ["ethereum", "bitcoin"];
       const currencies = await client.currency.list({ currencyIds });
 
       // THEN
       expect(currencies).toBeDefined();
       expect(currencies.length).toBe(currencyIds.length);
+      expect(currencies[0]?.id).toBe(currencyIds[1]);
+      expect(currencies[1]?.id).toBe(currencyIds[0]);
+      // Notice that the order of the list isn't defined by the order of the arguments in the query
+    });
+
+    it("should return a filtered list of currencies with no duplicates", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profiles.STANDARD);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const currencyIds = ["ethereum", "bitcoin", "ethereum"];
+      const currencies = await client.currency.list({ currencyIds });
+
+      // THEN
+      expect(currencies).toBeDefined();
+      expect(currencies.length).toBe(currencyIds.length - 1);
+      expect(currencies[0]?.id).toBe(currencyIds[1]);
+      expect(currencies[1]?.id).toBe(currencyIds[0]);
+      // Notice that the order of the list isn't defined by the order of the arguments in the query
+    });
+
+    it("should return a filtered list of currencies with no duplicates in manifest", async () => {
+      // GIVEN
+      const currencyIds = ["ethereum", "bitcoin", "ethereum"];
+      const transport = getSimulatorTransport({
+        ...profiles.STANDARD,
+        permissions: {
+          ...profiles.STANDARD.permissions,
+          currencyIds,
+        },
+      });
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const currencies = await client.currency.list();
+
+      // THEN
+      expect(currencies).toBeDefined();
+      expect(currencies.length).toBe(currencyIds.length - 1);
       expect(currencies[0]?.id).toBe(currencyIds[1]);
       expect(currencies[1]?.id).toBe(currencyIds[0]);
       // Notice that the order of the list isn't defined by the order of the arguments in the query
@@ -193,6 +383,22 @@ describe("Simulator", () => {
 
       // THEN
       await expect(client.currency.list()).rejects.toThrow("permission");
+    });
+
+    it("should support unknown currencies", async () => {
+      // GIVEN
+      const transport = getSimulatorTransport(profileWithFakeCurrency);
+      const client = new WalletAPIClient(transport);
+
+      // WHEN
+      const currencies = await client.currency.list();
+
+      // THEN
+      expect(currencies).toBeDefined();
+      expect(currencies).toHaveLength(3);
+      expect(currencies).toEqual(
+        expect.arrayContaining([expect.objectContaining({ id: "fake" })]),
+      );
     });
   });
 
@@ -381,6 +587,131 @@ describe("Simulator", () => {
 
       // THEN
       await expect(client.wallet.userId()).rejects.toThrow("permission");
+    });
+  });
+
+  describe("errors", () => {
+    it("should handle unknown errors", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw new TransportStatusError(27905);
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(
+        client.message.sign("account-btc-1", Buffer.from("")),
+      ).rejects.toThrow("Ledger device: UNKNOWN_ERROR (0x6d01)");
+    });
+
+    it("should handle simple string errors", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw new Error("simple string");
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(
+        client.message.sign("account-btc-1", Buffer.from("")),
+      ).rejects.toThrow("simple string");
+    });
+
+    it("should handle empty string errors", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw new Error();
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(
+        client.message.sign("account-btc-1", Buffer.from("")),
+      ).rejects.toThrow("");
+    });
+
+    it("should handle simple string", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw "simple string";
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(
+        client.message.sign("account-btc-1", Buffer.from("")),
+      ).rejects.toThrow("simple string");
+    });
+
+    it("should handle empty string", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw "";
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      await expect(
+        client.message.sign("account-btc-1", Buffer.from("")),
+      ).rejects.toThrow("");
+    });
+
+    it("should handle undefined", async () => {
+      // GIVEN
+      const profileWithErrors = {
+        ...profiles.STANDARD,
+        methods: {
+          ...profiles.STANDARD.methods,
+          "message.sign": () => {
+            throw undefined;
+          },
+        },
+      };
+      const transport = getSimulatorTransport(profileWithErrors);
+      const client = new WalletAPIClient(transport);
+
+      // THEN
+      try {
+        await client.message.sign("account-btc-1", Buffer.from(""));
+        expect(false).toBeTruthy();
+      } catch (error) {
+        expect(error).toBeUndefined();
+      }
     });
   });
 });

@@ -1,5 +1,7 @@
 import type {
   Account,
+  BitcoinGetAddress,
+  BitcoinGetPublicKey,
   BitcoinGetXPub,
   Currency,
   DeviceClose,
@@ -8,6 +10,7 @@ import type {
   DeviceSelect,
   DeviceTransport,
   ExchangeStart,
+  MessageSign,
   Promisable,
   RpcRequest,
   Transaction,
@@ -62,6 +65,18 @@ export type WalletHandlers = {
   "account.request": (params: {
     currencies$: Observable<Currency[]>;
     accounts$: Observable<Account[]>;
+    showAccountFilter?: boolean;
+    drawerConfiguration?: {
+      assets?: {
+        filter?: string;
+        leftElement?: string;
+        rightElement?: string;
+      };
+      networks?: {
+        leftElement?: string;
+        rightElement?: string;
+      };
+    };
   }) => Promisable<Account>;
   "account.receive": (params: {
     account: Account;
@@ -70,6 +85,7 @@ export type WalletHandlers = {
   "message.sign": (params: {
     account: Account;
     message: Buffer;
+    options?: MessageSign["params"]["options"];
     meta: Record<string, unknown> | undefined;
     tokenCurrency?: string;
   }) => Promisable<Buffer>;
@@ -101,6 +117,12 @@ export type WalletHandlers = {
     key: string;
     storeId: string;
   }) => Promisable<string | undefined>;
+  "bitcoin.getAddress": (
+    params: BitcoinGetAddress["params"],
+  ) => Promisable<string>;
+  "bitcoin.getPublicKey": (
+    params: BitcoinGetPublicKey["params"],
+  ) => Promisable<string>;
   "bitcoin.getXPub": (params: BitcoinGetXPub["params"]) => Promisable<string>;
   "exchange.start": (params: ExchangeStart["params"]) => Promisable<string>;
   "exchange.complete": (params: ExchangeParams) => Promisable<string>;
@@ -140,6 +162,7 @@ export type ServerConfig = {
   tracking: boolean;
   wallet: WalletInfo;
   appId: string;
+  mevProtected?: boolean;
 };
 
 export type CustomHandlers = Record<

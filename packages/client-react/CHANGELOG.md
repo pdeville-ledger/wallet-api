@@ -1,5 +1,153 @@
 # @ledgerhq/wallet-api-client-react
 
+## 1.4.10
+
+### Patch Changes
+
+- Updated dependencies [[`8357fe5`](https://github.com/LedgerHQ/wallet-api/commit/8357fe5a98e4f97d9f2af81abecb58990468a01a)]:
+  - @ledgerhq/wallet-api-client@1.9.0
+
+## 1.4.9
+
+### Patch Changes
+
+- Updated dependencies [[`ebc8996`](https://github.com/LedgerHQ/wallet-api/commit/ebc8996e4646fa52410e68c19791c9f8e8b4f4bf)]:
+  - @ledgerhq/wallet-api-client@1.8.0
+
+## 1.4.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.7.5
+
+## 1.4.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.7.4
+
+## 1.4.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.7.3
+
+## 1.4.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.7.2
+
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.7.1
+
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [[`74647a4`](https://github.com/LedgerHQ/wallet-api/commit/74647a4fc01f7a50c0ed18ad4e341bb56c1c12aa)]:
+  - @ledgerhq/wallet-api-client@1.7.0
+
+## 1.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.6.2
+
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.6.1
+
+## 1.4.0
+
+### Minor Changes
+
+- [#423](https://github.com/LedgerHQ/wallet-api/pull/423) [`1e0a402`](https://github.com/LedgerHQ/wallet-api/commit/1e0a402fe20fde241a3f118dc640593e775b664c) Thanks [@Justkant](https://github.com/Justkant)! - feat: add client prop to the react provider
+
+  Allows to pass a user created client instead of creating it in the provider
+
+## 1.3.12
+
+### Patch Changes
+
+- Updated dependencies [[`9261475`](https://github.com/LedgerHQ/wallet-api/commit/926147536eb309f2c19c90e9f7217e599fde2bf6)]:
+  - @ledgerhq/wallet-api-client@1.6.0
+
+## 1.3.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.11
+
+## 1.3.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.10
+
+## 1.3.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.9
+
+## 1.3.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.8
+
+## 1.3.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.7
+
+## 1.3.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.6
+
+## 1.3.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.5
+
+## 1.3.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.4
+
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @ledgerhq/wallet-api-client@1.5.3
+
 ## 1.3.2
 
 ### Patch Changes

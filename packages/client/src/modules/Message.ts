@@ -1,4 +1,4 @@
-import { schemaMessageSign } from "@ledgerhq/wallet-api-core";
+import { MessageSign, schemaMessageSign } from "@ledgerhq/wallet-api-core";
 import type { WalletAPIClient } from "../WalletAPIClient";
 
 export class MessageModule {
@@ -16,16 +16,18 @@ export class MessageModule {
    * @param message - Message the user should sign
    *
    * @returns Message signed
-   * @throws {@link RpcError} if an error occured on server side
+   * @throws {@link RpcError} if an error occurred on server side
    */
   async sign(
     accountId: string,
     message: Buffer,
+    options?: MessageSign["params"]["options"],
     meta?: Record<string, unknown>,
   ): Promise<Buffer> {
     const messageSignResult = await this.client.request("message.sign", {
       accountId,
       hexMessage: message.toString("hex"),
+      options,
       meta,
     });
 

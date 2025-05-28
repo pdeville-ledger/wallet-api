@@ -1,6 +1,7 @@
 import type BigNumber from "bignumber.js";
 import type { z } from "zod";
 import type { AlgorandTransaction } from "./algorand/types";
+import type { AptosTransaction } from "./aptos/types";
 import type { BitcoinTransaction } from "./bitcoin/types";
 import type { CardanoTransaction } from "./cardano/types";
 import type { CeloTransaction } from "./celo/types";
@@ -18,8 +19,14 @@ import type { RippleTransaction } from "./ripple/types";
 import type { SolanaTransaction } from "./solana/types";
 import type { StellarTransaction } from "./stellar/types";
 import type { TezosTransaction } from "./tezos/types";
+import type { TonTransaction } from "./ton/types";
 import type { TronTransaction } from "./tron/types";
+import type { VechainTransaction } from "./vechain/types";
 import type { schemaRawTransaction } from "./validation";
+import type { StacksTransaction } from "./stacks/types";
+import type { InternetComputerTransaction } from "./internet_computer/types";
+import type { CasperTransaction } from "./casper/types";
+import type { SuiTransaction } from "./sui/types";
 
 /**
  * Supported coin families
@@ -65,6 +72,7 @@ export type Transaction =
   | EthereumTransaction
   | BitcoinTransaction
   | AlgorandTransaction
+  | AptosTransaction
   | CryptoOrgTransaction
   | HederaTransaction
   | FilecoinTransaction
@@ -74,9 +82,15 @@ export type Transaction =
   | TezosTransaction
   | PolkadotTransaction
   | StellarTransaction
+  | TonTransaction
   | TronTransaction
   | NearTransaction
   | NeoTransaction
   | ElrondTransaction
   | CardanoTransaction
-  | SolanaTransaction;
+  | SolanaTransaction
+  | VechainTransaction
+  | StacksTransaction
+  | InternetComputerTransaction
+  | CasperTransaction
+  | SuiTransaction;

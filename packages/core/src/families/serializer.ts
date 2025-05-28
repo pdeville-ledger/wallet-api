@@ -3,6 +3,10 @@ import {
   serializeAlgorandTransaction,
 } from "./algorand/serializer";
 import {
+  deserializeAptosTransaction,
+  serializeAptosTransaction,
+} from "./aptos/serializer";
+import {
   deserializeBitcoinTransaction,
   serializeBitcoinTransaction,
 } from "./bitcoin/serializer";
@@ -49,6 +53,10 @@ import {
   serializeTezosTransaction,
 } from "./tezos/serializer";
 import {
+  deserializeTonTransaction,
+  serializeTonTransaction,
+} from "./ton/serializer";
+import {
   deserializeTronTransaction,
   serializeTronTransaction,
 } from "./tron/serializer";
@@ -64,6 +72,26 @@ import {
   deserializeSolanaTransaction,
   serializeSolanaTransaction,
 } from "./solana/serializer";
+import {
+  deserializeVechainTransaction,
+  serializeVechainTransaction,
+} from "./vechain/serializer";
+import {
+  deserializeStacksTransaction,
+  serializeStacksTransaction,
+} from "./stacks/serializer";
+import {
+  deserializeInternetComputerTransaction,
+  serializeInternetComputerTransaction,
+} from "./internet_computer/serializer";
+import {
+  deserializeCasperTransaction,
+  serializeCasperTransaction,
+} from "./casper/serializer";
+import {
+  serializeSuiTransaction,
+  deserializeSuiTransaction,
+} from "./sui/serializer";
 import type { RawTransaction, Transaction } from "./types";
 
 /**
@@ -81,6 +109,8 @@ export function serializeTransaction(transaction: Transaction): RawTransaction {
       return serializeBitcoinTransaction(transaction);
     case "algorand":
       return serializeAlgorandTransaction(transaction);
+    case "aptos":
+      return serializeAptosTransaction(transaction);
     case "crypto_org":
       return serializeCryptoOrgTransaction(transaction);
     case "ripple":
@@ -99,6 +129,8 @@ export function serializeTransaction(transaction: Transaction): RawTransaction {
       return serializePolkadotTransaction(transaction);
     case "stellar":
       return serializeStellarTransaction(transaction);
+    case "ton":
+      return serializeTonTransaction(transaction);
     case "tron":
       return serializeTronTransaction(transaction);
     case "near":
@@ -111,6 +143,16 @@ export function serializeTransaction(transaction: Transaction): RawTransaction {
       return serializeCardanoTransaction(transaction);
     case "solana":
       return serializeSolanaTransaction(transaction);
+    case "vechain":
+      return serializeVechainTransaction(transaction);
+    case "stacks":
+      return serializeStacksTransaction(transaction);
+    case "internet_computer":
+      return serializeInternetComputerTransaction(transaction);
+    case "casper":
+      return serializeCasperTransaction(transaction);
+    case "sui":
+      return serializeSuiTransaction(transaction);
     default: {
       const exhaustiveCheck: never = transaction; // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
       return exhaustiveCheck;
@@ -136,6 +178,8 @@ export function deserializeTransaction(
       return deserializeBitcoinTransaction(rawTransaction);
     case "algorand":
       return deserializeAlgorandTransaction(rawTransaction);
+    case "aptos":
+      return deserializeAptosTransaction(rawTransaction);
     case "crypto_org":
       return deserializeCryptoOrgTransaction(rawTransaction);
     case "ripple":
@@ -154,6 +198,8 @@ export function deserializeTransaction(
       return deserializePolkadotTransaction(rawTransaction);
     case "stellar":
       return deserializeStellarTransaction(rawTransaction);
+    case "ton":
+      return deserializeTonTransaction(rawTransaction);
     case "tron":
       return deserializeTronTransaction(rawTransaction);
     case "near":
@@ -166,6 +212,16 @@ export function deserializeTransaction(
       return deserializeCardanoTransaction(rawTransaction);
     case "solana":
       return deserializeSolanaTransaction(rawTransaction);
+    case "vechain":
+      return deserializeVechainTransaction(rawTransaction);
+    case "stacks":
+      return deserializeStacksTransaction(rawTransaction);
+    case "internet_computer":
+      return deserializeInternetComputerTransaction(rawTransaction);
+    case "casper":
+      return deserializeCasperTransaction(rawTransaction);
+    case "sui":
+      return deserializeSuiTransaction(rawTransaction);
     default: {
       const exhaustiveCheck: never = rawTransaction; // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
       return exhaustiveCheck;

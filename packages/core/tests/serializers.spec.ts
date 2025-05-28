@@ -12,6 +12,7 @@ import {
   PolkadotTransaction,
   RawAccount,
   RawAlgorandTransaction,
+  RawAptosTransaction,
   RawBitcoinTransaction,
   RawCosmosTransaction,
   RawCryptoOrgTransaction,
@@ -31,6 +32,8 @@ import {
   TronTransaction,
   RawNearTransaction,
   RawNeoTransaction,
+  RawSuiTransaction,
+  SuiTransaction,
   NearTransaction,
   NeoTransaction,
   ElrondTransaction,
@@ -39,6 +42,10 @@ import {
   RawCardanoTransaction,
   RawSolanaTransaction,
   SolanaTransaction,
+  VechainTransaction,
+  RawVechainTransaction,
+  RawHederaTransaction,
+  HederaTransaction,
 } from "../src";
 
 const date = new Date();
@@ -535,6 +542,33 @@ describe("serializers.ts", () => {
           recipient: "recipient",
         });
       });
+
+      it("should succeed to serialize a tron transaction with votes", () => {
+        const transaction: TronTransaction = {
+          family,
+          mode: "vote",
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          votes: [
+            { address: "recipient", voteCount: 50 },
+            { address: "recipient2", voteCount: 50 },
+          ],
+        };
+        const serializedTransaction = serializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          mode: "vote",
+          resource: undefined,
+          duration: undefined,
+          amount: "100",
+          recipient: "recipient",
+          votes: [
+            { address: "recipient", voteCount: 50 },
+            { address: "recipient2", voteCount: 50 },
+          ],
+        });
+      });
     });
 
     describe("near", () => {
@@ -558,6 +592,38 @@ describe("serializers.ts", () => {
       });
 
       it("should succeed to serialize a near transaction, with options", () => {
+        const tx = createTx();
+        const rawTx = serializeTransaction({ ...tx, fees: BigNumber(1) });
+
+        expect(rawTx).toEqual({
+          ...tx,
+          amount: "100",
+          fees: "1",
+        });
+      });
+    });
+
+    describe("sui", () => {
+      function createTx(): SuiTransaction {
+        return {
+          family: schemaFamilies.enum.sui,
+          amount: BigNumber(100),
+          recipient: "recipient",
+          mode: "send",
+        };
+      }
+
+      it("should succeed to serialize a sui transaction", () => {
+        const tx = createTx();
+        const rawTx = serializeTransaction(tx);
+
+        expect(rawTx).toEqual({
+          ...tx,
+          amount: "100",
+        });
+      });
+
+      it("should succeed to serialize a sui transaction, with options", () => {
         const tx = createTx();
         const rawTx = serializeTransaction({ ...tx, fees: BigNumber(1) });
 
@@ -681,6 +747,43 @@ describe("serializers.ts", () => {
       });
     });
 
+    describe("hedera", () => {
+      const family = schemaFamilies.enum.hedera;
+
+      it("should serialize a Hedera transaction", () => {
+        const transaction: HederaTransaction = {
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          memo: "test2",
+        };
+        const serializedTransaction = serializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: "100",
+          recipient: "recipient",
+          memo: "test2",
+        });
+      });
+
+      it("should serialize a Hedera transaction whithout optional params", () => {
+        const transaction: HederaTransaction = {
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+        };
+        const serializedTransaction = serializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: "100",
+          recipient: "recipient",
+          memo: undefined,
+        });
+      });
+    });
+
     describe("solana", () => {
       const family = schemaFamilies.enum.solana;
 
@@ -695,6 +798,7 @@ describe("serializers.ts", () => {
               memo: "test",
             },
           },
+          raw: "any random value",
         };
         const serializedTransaction = serializeTransaction(transaction);
 
@@ -703,6 +807,7 @@ describe("serializers.ts", () => {
           amount: "100",
           recipient: "recipient",
           model: '{"kind":"transfer","uiState":{"memo":"test"}}',
+          raw: "any random value",
         });
       });
 
@@ -743,6 +848,47 @@ describe("serializers.ts", () => {
           recipient: "recipient",
           model:
             '{"kind":"transfer","uiState":{"memo":"test"},"commandDescriptor":{"command":{"kind":"stake.split","authorizedAccAddr":"test","stakeAccAddr":"test","amount":100,"seed":"test","splitStakeAccAddr":"test"},"fee":100,"warnings":{"Warning":{"name":"warning","message":"warning message"}},"errors":{"Error":{"name":"error","message":"error message"}}}}',
+        });
+      });
+    });
+
+    describe("vechain", () => {
+      const family = schemaFamilies.enum.vechain;
+
+      it("should serialize a Vechain transaction", () => {
+        const transaction: VechainTransaction = {
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          estimatedFees: "0",
+          body: {
+            chainTag: 0,
+            blockRef: "",
+            expiration: 0,
+            clauses: [],
+            gasPriceCoef: 0,
+            gas: 0,
+            dependsOn: null,
+            nonce: 0,
+          },
+        };
+        const serializedTransaction = serializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: "100",
+          recipient: "recipient",
+          estimatedFees: "0",
+          body: {
+            chainTag: 0,
+            blockRef: "",
+            expiration: 0,
+            clauses: [],
+            gasPriceCoef: 0,
+            gas: 0,
+            dependsOn: null,
+            nonce: 0,
+          },
         });
       });
     });
@@ -1236,6 +1382,38 @@ describe("serializers.ts", () => {
       });
     });
 
+    describe("sui", () => {
+      function createRawTx(): RawSuiTransaction {
+        return {
+          family: schemaFamilies.enum.sui,
+          mode: "send",
+          amount: "100",
+          recipient: "recipient",
+        };
+      }
+
+      it("should succeed to deserialize a sui transaction", () => {
+        const rawTx = createRawTx();
+        const tx = deserializeTransaction(rawTx);
+
+        expect(tx).toEqual({
+          ...rawTx,
+          amount: new BigNumber(100),
+        });
+      });
+
+      it("should succeed to deserialize a sui transaction with fees", () => {
+        const rawTx = createRawTx();
+        const tx = deserializeTransaction({ ...rawTx, fees: "1" });
+
+        expect(tx).toEqual({
+          ...rawTx,
+          amount: new BigNumber(100),
+          fees: new BigNumber(1),
+        });
+      });
+    });
+
     describe("neo", () => {
       function createRawTx(): RawNeoTransaction {
         return {
@@ -1350,6 +1528,84 @@ describe("serializers.ts", () => {
       });
     });
 
+    describe("hedera", () => {
+      const family = schemaFamilies.enum.hedera;
+
+      it("should deserialize a Hedera transaction", () => {
+        const transaction: RawHederaTransaction = {
+          family,
+          amount: "100",
+          recipient: "recipient",
+          memo: "test2",
+        };
+        const serializedTransaction = deserializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          memo: "test2",
+        });
+      });
+
+      it("should deserialize a Hedera transaction without optional params", () => {
+        const transaction: RawHederaTransaction = {
+          family,
+          amount: "100",
+          recipient: "recipient",
+        };
+        const serializedTransaction = deserializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          memo: undefined,
+        });
+      });
+    });
+
+    describe("aptos", () => {
+      const family = schemaFamilies.enum.aptos;
+
+      it("should deserialize a Aptos transaction", () => {
+        const transaction: RawAptosTransaction = {
+          family,
+          amount: "1000",
+          mode: "send",
+          recipient: "recipient",
+          fees: "100",
+        };
+        const serializedTransaction = deserializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: new BigNumber(1000),
+          recipient: "recipient",
+          mode: "send",
+          fees: new BigNumber(100),
+        });
+      });
+
+      it("should deserialize a Aptos transaction without optional params", () => {
+        const transaction: RawAptosTransaction = {
+          family,
+          amount: "2000",
+          recipient: "recipient",
+          mode: "send",
+        };
+        const serializedTransaction = deserializeTransaction(transaction);
+
+        expect(serializedTransaction).toEqual({
+          family,
+          amount: new BigNumber(2000),
+          recipient: "recipient",
+          mode: "send",
+          fees: undefined,
+        });
+      });
+    });
+
     describe("solana", () => {
       const family = schemaFamilies.enum.solana;
 
@@ -1359,6 +1615,7 @@ describe("serializers.ts", () => {
           amount: "100",
           recipient: "recipient",
           model: '{"kind":"transfer","uiState":{"memo":"test"}}',
+          raw: "any random value",
         };
 
         const transaction = deserializeTransaction(serializedTransaction);
@@ -1373,6 +1630,7 @@ describe("serializers.ts", () => {
               memo: "test",
             },
           },
+          raw: "any random value",
         });
       });
 
@@ -1417,6 +1675,48 @@ describe("serializers.ts", () => {
         });
       });
     });
+
+    describe("vechain", () => {
+      const family = schemaFamilies.enum.vechain;
+
+      it("should deserialize a Solana transaction", () => {
+        const serializedTransaction: RawVechainTransaction = {
+          family,
+          amount: "100",
+          recipient: "recipient",
+          estimatedFees: "0",
+          body: {
+            chainTag: 0,
+            blockRef: "",
+            expiration: 0,
+            clauses: [],
+            gasPriceCoef: 0,
+            gas: 0,
+            dependsOn: null,
+            nonce: 0,
+          },
+        };
+
+        const transaction = deserializeTransaction(serializedTransaction);
+
+        expect(transaction).toEqual({
+          family,
+          amount: new BigNumber(100),
+          recipient: "recipient",
+          estimatedFees: "0",
+          body: {
+            chainTag: 0,
+            blockRef: "",
+            expiration: 0,
+            clauses: [],
+            gasPriceCoef: 0,
+            gas: 0,
+            dependsOn: null,
+            nonce: 0,
+          },
+        });
+      });
+    });
   });
 
   describe("Serialize -> Deserialize flow", () => {
@@ -1457,7 +1757,7 @@ describe("serializers.ts", () => {
         const serializedTransaction = serializeTransaction(transaction);
         const stringifiedTransaction = JSON.stringify(serializedTransaction);
         const parsedTransaction = JSON.parse(
-          stringifiedTransaction
+          stringifiedTransaction,
         ) as RawTransaction;
         const expectedTransaction = deserializeTransaction(parsedTransaction);
 
